@@ -4,9 +4,6 @@ description: Installs and caches everything
 runs:
   using: 'composite'
   steps:
-    - name: Check out repository code
-      uses: actions/checkout@v4
-
     - name: Print a message from file
       shell: bash
       run: echo "$(cat hello_world.txt)"
