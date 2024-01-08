@@ -3,28 +3,25 @@ name: hello-world
 on: push
 
 jobs:
-  hello-world-job:
+  build:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Check out repository code
-        uses: actions/checkout@v4
+      - name: Setup environment
+        uses: ./.github/actions/setup-environment
 
-      - name: Print a message from file
-        run: echo "$(cat hello_world.txt)"
+      - name: Build the app
+        run: npm run build
 
-      - name: Use Node
-        uses: actions/setup-node@v4
-        with:
-          node-version-file: '.nvmrc'
-          cache: 'npm'
 
-      - name: Cache Next.js build
-        uses: actions/cache@v3
-        with:
-          path: ${{ github.workspace }}/.next/cache
-          key: ${{ runner.os }}-nextjs-${{ hashFiles('**/package-lock.json') }}
+  test:
+    runs-on: ubuntu-latest
 
-      - name: Install dependencies and build
-        run: npm install && npm run build
+    needs: build
 
+    steps:
+      - name: Setup environment
+        uses: ./.github/actions/setup-environment
+
+      - name: Test the app
+        run: npm run test
