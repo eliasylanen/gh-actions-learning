@@ -4,10 +4,6 @@ description: Installs and caches everything
 runs:
   using: 'composite'
   steps:
-    - name: Print a message from file
-      shell: bash
-      run: echo "$(cat hello_world.txt)"
-
     - name: Use Node
       uses: actions/setup-node@v4
       with:

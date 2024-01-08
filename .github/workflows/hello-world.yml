@@ -3,6 +3,16 @@ name: hello-world
 on: push
 
 jobs:
+  print:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Check out repository code
+        uses: actions/checkout@v4
+
+      - name: Print hello world
+        run: echo "$(cat hello_world.txt)"
+
   build:
     runs-on: ubuntu-latest
 
